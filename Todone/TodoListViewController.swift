@@ -37,7 +37,17 @@ class TodoListViewController: UITableViewController {
     
     //Did Select promps data from the row selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      print(indexPath.row)
+        print(itemArray[indexPath.row])
+        
+        //Add a check mark when tableview is selected or remove if selected
+       
+        if(tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark) {
+          tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+          tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 //End of class
