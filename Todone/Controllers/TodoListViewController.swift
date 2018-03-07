@@ -38,15 +38,23 @@ class TodoListViewController: UITableViewController {
     
     //Assign Data to table rows ToDoItemCell is the identifyer for the table view cell and the indexPath is the array index
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         //Access text properties for the tableView label
-        cell.textLabel?.text = itemArray[indexPath.row].title
         
-        if itemArray[indexPath.row].done == true {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+        let item = itemArray[indexPath.row]
+        
+        cell.textLabel?.text = item.title
+        
+        //Ternary operator ==>
+        //Value = condition ? valueTruee : valueIfTrue : valueIfFalse
+        cell.accessoryType = item.done ? .checkmark : .none
+        
+//        if item.done == true {
+//            cell.accessoryType = .checkmark
+//        } else {
+//            cell.accessoryType = .none
+//        }
         
         return cell
     }
@@ -59,11 +67,14 @@ class TodoListViewController: UITableViewController {
         
         //Add a check mark when tableview is selected or remove if selected
         
-        if itemArray[indexPath.row].done == false {
-           itemArray[indexPath.row].done = true
-        } else {
-            itemArray[indexPath.row].done = false
-        }
+        //Not Operator in place if if/else chaning to oppasate with ! since bools can have 1 of 2 states true/false
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        
+//        if itemArray[indexPath.row].done == false {
+//           itemArray[indexPath.row].done = true
+//        } else {
+//            itemArray[indexPath.row].done = false
+//        }
        
         tableView.reloadData()
         
