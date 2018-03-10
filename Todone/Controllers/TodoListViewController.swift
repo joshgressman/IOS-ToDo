@@ -12,11 +12,15 @@ class TodoListViewController: UITableViewController {
     
     //Array of Item Object from the Item data model
     var itemArray = [Item]()
-
-    let defaults = UserDefaults.standard
     
+    //Set up storage path to file torage
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         //Using Item data model class / object
@@ -24,9 +28,9 @@ class TodoListViewController: UITableViewController {
         newItem.title = "Do all the things"
         itemArray.append(newItem)
         
-        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-            itemArray = items
-        }
+//        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
+//            itemArray = items
+//        }
     }
 
   //MARK - Tableview Datasouce Methods
@@ -99,8 +103,14 @@ class TodoListViewController: UITableViewController {
             self.itemArray.append(newItem)
             
             //save data to userDefaults - Local Storage
-            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            
+            let encoder = PropertyListEncoder()
+           
+            do {
+            let data = try encoder.encode(self.itemArray)
+                try data.write(to: self.dataFilePath!)
+            } catch {
+               print("Error encoding item array")
+            }
             self.tableView.reloadData()
             print("Success")
         }
