@@ -28,9 +28,8 @@ class TodoListViewController: UITableViewController {
         newItem.title = "Do all the things"
         itemArray.append(newItem)
         
-//        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-//            itemArray = items
-//        }
+       //Load data fron NSCode data plist
+        loadItems()
     }
 
   //MARK - Tableview Datasouce Methods
@@ -74,13 +73,7 @@ class TodoListViewController: UITableViewController {
         //Not Operator in place if if/else chaning to oppasate with ! since bools can have 1 of 2 states true/false
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-//        if itemArray[indexPath.row].done == false {
-//           itemArray[indexPath.row].done = true
-//        } else {
-//            itemArray[indexPath.row].done = false
-//        }
-       
-        tableView.reloadData()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -102,17 +95,8 @@ class TodoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             
-            //save data to userDefaults - Local Storage
-            let encoder = PropertyListEncoder()
-           
-            do {
-            let data = try encoder.encode(self.itemArray)
-                try data.write(to: self.dataFilePath!)
-            } catch {
-               print("Error encoding item array")
-            }
-            self.tableView.reloadData()
-            print("Success")
+            self.saveItems()
+            
         }
         
         alert.addTextField { (alertTextField) in
@@ -123,6 +107,33 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    //MARK - Save data method
+    func saveItems() {
+        //save data to userDefaults - Local Storage
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array")
+        }
+        self.tableView.reloadData()
+    }
+    
+    //Get data from NScoder data in Plist data directory
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+            itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding item array, \(error)")
+            }
+        }
     }
     
 //End of class
