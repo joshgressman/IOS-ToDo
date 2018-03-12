@@ -19,14 +19,6 @@ class TodoListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //Using Item data model class / object
-        let newItem = Item()
-        newItem.title = "Do all the things"
-        itemArray.append(newItem)
         
        //Load data fron NSCode data plist
         loadItems()

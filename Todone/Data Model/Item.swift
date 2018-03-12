@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Item: Encodable {
+//Codeable signafies that the code is able to be encoded/saved and decoded/extracted
+class Item: Codable {
     var title: String = ""
     var done: Bool = false
 }
