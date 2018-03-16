@@ -45,7 +45,6 @@ class TodoListViewController: UITableViewController {
         //Value = condition ? valueTruee : valueIfTrue : valueIfFalse
         cell.accessoryType = item.done ? .checkmark : .none
         
-        
         return cell
     }
     
@@ -57,7 +56,13 @@ class TodoListViewController: UITableViewController {
         
         //Add a check mark when tableview is selected or remove if selected
         
-        //Not Operator in place if if/else chaning to oppasate with ! since bools can have 1 of 2 states true/false
+        
+        //Removes data from persistent data / CoreData
+//        context.delete(itemArray[indexPath.row])
+        
+        //Removes data from data soucre
+//        itemArray.remove(at: indexPath.row)
+        
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         saveItems()
