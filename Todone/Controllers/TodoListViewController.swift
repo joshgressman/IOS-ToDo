@@ -149,6 +149,19 @@ extension TodoListViewController: UISearchBarDelegate {
         
     }
     
+    //Return original list of search is cleared out
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                //removes keyborad
+                searchBar.resignFirstResponder()
+            }
+            
+        }
+    }
+    
 //End of the extension
 }
 
