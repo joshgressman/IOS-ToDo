@@ -125,6 +125,20 @@ class TodoListViewController: UITableViewController {
         }
     }
     
+    
+
+    
 //End of class
+}
+
+//Splits of the functionality of the Controller instead of all the delegates at the top
+extension TodoListViewController: UISearchBarDelegate {
+    
+    //Search bar delegate
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        <#code#>
+    }
+    
+//End of the extension
 }
 
