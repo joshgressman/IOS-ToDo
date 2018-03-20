@@ -13,12 +13,12 @@ class CategoryViewController: UITableViewController {
     
     //Global properties
     var categoryArray = [Category]()
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         loadCategory()
     }
 
@@ -66,8 +66,20 @@ class CategoryViewController: UITableViewController {
     }
     
     
-    //MARK: - TableView Delegate Methods
-    
+    //MARK: - TableView Delegate Methods > Triggered when a cell is selected
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Navigate to item list view 
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    //Prepeare segue before navigating to the item list view > Intitalized just before perfromSeque
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+   
+        //Get data from the selected row with category information
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categoryArray[indexPath.row]
+        }
+    }
     
     
     //MARK: - Data Manipulation Methods

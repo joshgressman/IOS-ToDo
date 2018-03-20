@@ -13,6 +13,12 @@ class TodoListViewController: UITableViewController {
     
     //Array of Item Object from the Item data model
     var itemArray = [Item]()
+    //initialezs when value is set
+    var selectedCategory : Category? {
+        didSet{
+          loadItems()
+        }
+    }
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -21,7 +27,6 @@ class TodoListViewController: UITableViewController {
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
        
-       loadItems()
     }
 
   //MARK - Tableview Datasouce Methods
