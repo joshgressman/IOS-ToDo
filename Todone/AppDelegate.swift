@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+       
+        //locate realmDB
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+        //Initialize new realmDB container
+      
+        
+        //Add item to realm DB
+        do {
+            let realm = try Realm()
+            
+        } catch {
+            print("Error installing new Realm \(error)")
+        }
+        
+        
      
         return true
     }
