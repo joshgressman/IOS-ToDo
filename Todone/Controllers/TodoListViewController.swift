@@ -61,13 +61,18 @@ class TodoListViewController: UITableViewController {
     
     //Did Select promps data from the row selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(todoItems[indexPath.row])
-        
-//        todoItems[indexPath.row].done = !todoItems[indexPath.row].done
-        
-       
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        //update data when item is selected in realm
+        if let item = todoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                 //save updated attribute with opposite using !
+                 item.done = !item.done
+                }
+            } catch {
+                print("Error updating \(error)")
+            }
+        }
+       tableView.reloadData()
     }
     
     //MARK - Add New Items
