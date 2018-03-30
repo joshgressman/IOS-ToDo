@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import CoreData
 import RealmSwift
+
 
 class TodoListViewController: UITableViewController {
     
@@ -36,6 +36,7 @@ class TodoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return todoItems?.count ?? 1
     }
+    
     
     //Assign Data to table rows ToDoItemCell is the identifyer for the table view cell and the indexPath is the array index
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
