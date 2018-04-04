@@ -22,7 +22,7 @@ class CategoryViewController: SwipeTableViewController{
         super.viewDidLoad()
          loadCategory()
         
-         tableView.rowHeight = 80.0
+         
     }
 
    
@@ -106,6 +106,19 @@ class CategoryViewController: SwipeTableViewController{
     
         tableView.reloadData()
 
+    }
+    
+    //DELETE Data From Swipe
+    override func updateModel(at indexPath: IndexPath) {
+        if let categoryForDeletion = self.categories?[indexPath.row]{
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryForDeletion)
+                }
+            } catch {
+                print("Error deleting category \(error)")
+            }
+        }
     }
     
 }
