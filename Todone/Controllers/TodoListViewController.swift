@@ -35,27 +35,35 @@ class TodoListViewController: SwipeTableViewController {
     //Initiated after viewDidLoad
     override func viewWillAppear(_ animated: Bool) {
         
-        title = selectedCategory!.name
+        title = selectedCategory?.name
         
-        if let colorHex = selectedCategory?.cellColor {
-            
-            guard let navBar = navigationController?.navigationBar else {fatalError("navigation controller does not exhist")}
-            
-            //If let initiates if NOT NIL
-            if let navBarColor = UIColor(hexString: colorHex) {
-                
-                navBar.barTintColor = navBarColor
-                
-                navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
-                
-                navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
-                
-                searchBar.barTintColor = navBarColor
-            }
-            
-            
-        }
+        guard let colorHex = selectedCategory?.cellColor else {fatalError() }
+        
+        updateNavBar(withHexCode: colorHex)
+        
     }
+    
+    //Resets defaults when view is destroyed
+    override func viewWillDisappear(_ animated: Bool) {
+
+        updateNavBar(withHexCode: "1D9BF6")
+    }
+    
+    //MARK: - Nav Bar Setup methds
+    func updateNavBar(withHexCode colorHexCode: String) {
+     guard let navBar = navigationController?.navigationBar else {fatalError("navigation controller does not exhist")}
+        
+     guard let navBarColor = UIColor(hexString: colorHexCode) else {fatalError() }
+        
+     navBar.barTintColor = navBarColor
+        
+     navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        
+     navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+        
+     searchBar.barTintColor = navBarColor
+    }
+    
 
   //MARK - Tableview Datasouce Methods
   
